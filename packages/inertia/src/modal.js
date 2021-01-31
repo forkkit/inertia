@@ -3,6 +3,10 @@ export default {
   listener: null,
 
   show(html) {
+    if (typeof html === 'object') {
+      html = `All Inertia requests must receive a valid Inertia response, however a plain JSON response was received.<hr>${JSON.stringify(html)}`
+    }
+
     let page = document.createElement('html')
     page.innerHTML = html
     page.querySelectorAll('a').forEach(a => a.setAttribute('target', '_top'))
@@ -12,6 +16,7 @@ export default {
     this.modal.style.width = '100vw'
     this.modal.style.height = '100vh'
     this.modal.style.padding = '50px'
+    this.modal.style.boxSizing = 'border-box'
     this.modal.style.backgroundColor = 'rgba(0, 0, 0, .6)'
     this.modal.style.zIndex = 200000
     this.modal.addEventListener('click', () => this.hide())
